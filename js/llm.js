@@ -255,7 +255,8 @@
   function defaultHref(label, value) {
     if (/电话|手机/.test(label)) return 'tel:' + value.replace(/\s|-/g, '');
     if (/邮箱|mail/i.test(label)) return 'mailto:' + value;
-    if (/主页|网站|链接|http/i.test(value)) return /^https?:/.test(value) ? value : 'https://' + value;
+    if (/^https?:\/\//i.test(value)) return value;
+    if (/主页|网站|链接|博客|github|gitee|blog|site|link/i.test(label)) return 'https://' + value.replace(/^\/+/, '');
     return '';
   }
 

@@ -623,6 +623,14 @@
     renderEffectPicker();
     renderAvatarPreview();
     renderModuleManager();
+    syncLLMButton(cfg);
+  }
+
+  /* 「大模型识别」按钮只在已启用且填了 Key 时出现，任何调用策略下都可手动强制调用 */
+  function syncLLMButton(cfg) {
+    if (!els.btnLLMParse) return;
+    var c = cfg || Store.getLLM();
+    els.btnLLMParse.hidden = !(c.enabled && c.apiKey);
   }
 
   function saveSettings() {
@@ -635,6 +643,7 @@
       trigger: els.llmTrigger ? els.llmTrigger.value : 'fallback'
     };
     Store.setLLM(cfg);
+    syncLLMButton(cfg);
     return cfg;
   }
 
@@ -793,6 +802,6 @@
 
   }
 
-  return { applyBg: applyBg, initBg: initBg, renderModuleManager: renderModuleManager, loadSettings: loadSettings, readFile: readFile, bindSettings: bindSettings };
+  return { applyBg: applyBg, initBg: initBg, renderModuleManager: renderModuleManager, loadSettings: loadSettings, syncLLMButton: syncLLMButton, readFile: readFile, bindSettings: bindSettings };
   } };
 })(typeof window !== 'undefined' ? window : globalThis);

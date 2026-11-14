@@ -44,6 +44,7 @@
     rawInput: $('raw-input'),
     parseStatus: $('parse-status'),
     btnParse: $('btn-parse'),
+    btnLLMParse: $('btn-llm-parse'),
     btnTemplate: $('btn-template'),
     btnSample: $('btn-sample'),
     btnLoadFile: $('btn-load-file'),
@@ -142,6 +143,7 @@
         els.btnParse.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" class="btn-icon"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>一键识别';
       }
     }
+    if (els.btnLLMParse) els.btnLLMParse.disabled = busy;
   }
 
   function status(node, text, kind) {
@@ -247,6 +249,7 @@
     }
 
     if (els.btnParse) els.btnParse.addEventListener('click', function () { runParse(false); });
+    if (els.btnLLMParse) els.btnLLMParse.addEventListener('click', function () { runParse(true); });
     if (els.btnTemplate) {
       els.btnTemplate.addEventListener('click', function () {
         els.rawInput.value = Parser.TEMPLATE;
@@ -389,6 +392,7 @@
     /* 背景特效要先应用，避免先渲染默认款再切一下闪动 */
     initBg();
     initAvatar();
+    syncLLMButton();
 
     var data = Store.load();
 
@@ -398,7 +402,7 @@
       status(els.dataStatus, Store.dataNotice, 'warn');
       if (els.recoveryNotice) {
         els.recoveryNotice.hidden = false;
-        els.recoveryNotice.textContent = Store.dataNotice + '。在「设置 → 数据管理」中可导出旧数据 / 迁移备份。';
+        els.recoveryNotice.textContent = Store.dataNotice + (Store.dataNotice.indexOf('设置 → 数据管理') === -1 ? '。在「设置 → 数据管理」中可导出旧数据 / 迁移备份。' : '。');
       }
     }
 
@@ -497,6 +501,7 @@
   function initBg() { return settingsUI.initBg.apply(null, arguments); }
   function renderModuleManager() { return settingsUI.renderModuleManager.apply(null, arguments); }
   function loadSettings() { return settingsUI.loadSettings.apply(null, arguments); }
+  function syncLLMButton() { return settingsUI.syncLLMButton.apply(null, arguments); }
   function readFile() { return settingsUI.readFile.apply(null, arguments); }
   function bindSettings() { return settingsUI.bindSettings.apply(null, arguments); }
 

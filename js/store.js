@@ -204,7 +204,12 @@
           this.recoveryRaw = raw;
           this.dataNotice = '本地数据来自更新版本，当前只读取，不自动降级；可导出旧数据备份';
         } else if (this.backup(raw,version)) {
-          try { this.save(data); this.dataNotice = '已迁移本地修改到当前版本，旧数据已备份，可导出旧数据'; }
+          try {
+            this.save(data);
+            this.dataNotice = saved.__snapshot === 1 && typeof version === 'number' && version < currentVersion()
+              ? 'data.js 默认数据已更新（v' + version + '→v' + currentVersion() + '），页面仍显示你的本地修改；如需采用新默认数据，请在「设置 → 数据管理」点「恢复默认数据」（会先备份当前数据）'
+              : '已迁移本地修改到当前版本，旧数据已备份，可导出旧数据';
+          }
           catch (_) { this.dataNotice = '迁移结果可读取，但写入失败；原始数据与备份均保留，请导出备份后释放空间'; }
         } else {
           this.recoveryPending = true;
