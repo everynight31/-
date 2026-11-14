@@ -192,10 +192,16 @@
     page-break-after: avoid;
   }
 
+  .section-title::before {
+    width: 2.4pt !important;
+    background: #1D4ED8 !important;
+  }
+
   .section-title::after {
-    width: 30pt !important;
-    height: 1.6pt !important;
-    background: #0058B8 !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    height: 0.6pt !important;
+    background: #DDDDDD !important;
   }
 
   .timeline-item, .card, .list-items li, .skills-grid {

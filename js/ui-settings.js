@@ -85,7 +85,7 @@
     var P = global.ResumeParticles;
     if (P) {
       P.setDensity(cfg.density || 1);
-      P.setEffect(cfg.effect || 'water');
+      P.setEffect(cfg.effect || 'off');
     }
     renderEffectPicker();
   }

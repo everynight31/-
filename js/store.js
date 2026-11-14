@@ -364,7 +364,7 @@
 
     /* -------------------------------------------------- 背景特效偏好 */
     bgDefaults: function () {
-      return { effect: 'water', density: 1 };
+      return { effect: 'off', density: 1 };
     },
 
     getBg: function () {
